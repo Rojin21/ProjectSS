@@ -1,0 +1,44 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Highlight the current navigation link
+    const navLinks = document.querySelectorAll('nav ul li a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', event => {
+            event.preventDefault();
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            link.classList.add('active');
+        });
+    });
+
+    // Smooth scrolling for links
+    navLinks.forEach(link => {
+        link.addEventListener('click', event => {
+            event.preventDefault();
+            const targetId = link.getAttribute('href').replace('#', '');
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Add toggle functionality for "Learn More" button
+    const learnMoreButton = document.querySelector('a[href="#"]');
+    const innovationSection = document.querySelector('section:nth-child(2)');
+    learnMoreButton.addEventListener('click', event => {
+        event.preventDefault();
+        if (innovationSection.style.display === 'none') {
+            innovationSection.style.display = 'block';
+            learnMoreButton.textContent = 'Hide';
+        } else {
+            innovationSection.style.display = 'none';
+            learnMoreButton.textContent = 'Learn More';
+        }
+    });
+
+    // Initialize the display of sections
+    innovationSection.style.display = 'block';
+});
+
